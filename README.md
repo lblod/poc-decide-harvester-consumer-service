@@ -1,10 +1,10 @@
-# harvesting scanning cve service
+# harvesting consumer decide service
 
 This service aims to handle delta consumer events (dumps, delta file).
 
-It downloads the delta or dump file and make it available to the next steps
+It downloads the delta or dump file and make it available to the next steps.
 
-This service reacts to deltas and must be used within the context of the LBLOD harvester.
+This service reacts to deltas and must be used within the context of the harvester.
 
 Here's an example of scheduled job one can create to trigger the task (notice `<http://www.semanticdesktop.org/ontologies/2007/01/19/nie#url>
 
@@ -89,12 +89,17 @@ Here's an example of scheduled job one can create to trigger the task (notice `<
 Add the following to your docker-compose file:
 
 ```yml
-cve-scanner-service:
-  image: lblod/harvesting-scanning-cve-service
+harvester-consumer-service:
+  image: lblod/poc-decide-harvester-consumer-service
+  environment:
+            DCR_START_FROM_DELTA_TIMESTAMP: 2025-09-01T00:00:00
+            DCR_SYNC_BASE_URL: https://lokaalbeslist-harvester-1.s.redhost.be/
+            DCR_SYNC_FILES_PATH: /sync/besluiten/files
+            DCR_SYNC_DATASET_SUBJECT: http://data.lblod.info/datasets/delta-producer/dumps/lblod-harvester/BesluitenCacheGraphDump
+            TARGET_GRAPH: "http://mu.semte.ch/graphs/public"
+            DCR_BATCH_SIZE: 1000
   links:
     - database:database
-  volumes:
-    - /var/run/docker.sock:/var/run/docker.sock
 ```
 
 Add the delta rule:
@@ -113,7 +118,7 @@ Add the delta rule:
   },
   "callback": {
     "method": "POST",
-    "url": "http://cve-scanner-service/delta"
+    "url": "http://harvester-consumer-service/delta"
   },
   "options": {
     "resourceFormat": "v0.0.1",
