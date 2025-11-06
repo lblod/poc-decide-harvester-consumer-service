@@ -44,6 +44,7 @@ export const BATCH_SIZE = parseInt(process.env.DCR_BATCH_SIZE) || 100;
 
 // delta consumer related
 
+export const DUMPFILE_FOLDER = process.env.DCR_DUMPFILE_FOLDER || 'consumer/deltas';
 if (!process.env.DCR_SYNC_BASE_URL)
     throw `Expected 'DCR_SYNC_BASE_URL' to be provided.`;
 export const SYNC_BASE_URL = process.env.DCR_SYNC_BASE_URL;
