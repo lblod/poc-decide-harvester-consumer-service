@@ -12,7 +12,7 @@ export const TASK_TYPE = "http://redpencil.data.gift/vocabularies/tasks/Task";
 export const ERROR_TYPE = "http://open-services.net/ns/core#Error";
 export const ERROR_URI_PREFIX = "http://redpencil.data.gift/id/jobs/error/";
 export const connectionOptions = {
-    scope: "http://services.redpencil.io/decide-consumer-service"
+    // scope: "http://services.redpencil.io/decide-consumer-service"
 };
 export const PREFIXES = `
   PREFIX harvesting: <http://lblod.data.gift/vocabularies/harvesting/>

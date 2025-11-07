@@ -6,6 +6,9 @@ import bodyParser from "body-parser";
 import { run } from "./lib/pipeline";
 import { Delta } from "./lib/delta";
 import { STATUS_SCHEDULED } from "./constant";
+import { failBusyTasks } from "./lib/task";
+
+failBusyTasks();
 
 app.get("/", function (_req, res) {
     res.send("Hello mu-javascript-template");
